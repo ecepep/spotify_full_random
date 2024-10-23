@@ -53,7 +53,7 @@ def request_token():
 
     return content
 
-def get_creds():
+def get_token():
     global TOKEN, TOKEN_FILE
 
     if TOKEN is None and os.path.isfile(TOKEN_FILE):
@@ -77,5 +77,3 @@ def get_creds():
 
     return access_token, token_type
 
-get_creds()
-# testload()
