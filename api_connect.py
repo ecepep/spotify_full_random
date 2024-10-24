@@ -1,5 +1,7 @@
-### https://developer.spotify.com/documentation/web-api/tutorials/getting-started
-### Fetch a valid token for requesting spotify web api
+"""
+https://developer.spotify.com/documentation/web-api/tutorials/getting-started
+Fetch a valid client token for requesting spotify web api's
+"""
 
 import requests as re
 import json
@@ -77,3 +79,8 @@ def get_token():
 
     return access_token, token_type
 
+def get_authorizaton_headers():
+    access_token, token_type = get_token()
+    headers = {"Authorization": token_type + " " + access_token}
+    return headers
+    
