@@ -5,7 +5,7 @@ Intend to provide an [almost] random sub-sample of all spotify's songs (to make 
 import json
 import requests as re
 
-from api_connect import get_authorizaton_headers
+from api_connect import get_client_authorizaton_headers
 
 # learn on isrc and use it:
 # https://isrc.ifpi.org/en/
@@ -17,7 +17,7 @@ query_artist = "ju"
 query = "%20year:"+query_year+"%20track:"+query_song+"%20artist:"+query_artist
 url = "https://api.spotify.com/v1/search?q="+ query+ "&type=track"+market+"&limit=10&offset=0"
 
-res = re.get(url=url, headers= get_authorizaton_headers())
+res = re.get(url=url, headers= get_client_authorizaton_headers())
 print("status: ", res.status_code)
 if res.status_code != 200:
     print("res.content", res.content)
