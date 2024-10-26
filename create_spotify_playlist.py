@@ -100,6 +100,7 @@ def create_own_spotify_playlist(name, description, track_ids, public = False):
     playlist_id = create_playlist(name, me_id, description, public )
     add_songs_to_playlist(track_ids, playlist_id)
 
-# track_ids = [ '1KQc37jezhunxnOPhvdwSG','2IJJszwGK4NWmh3bNK6CPD','4JsDHMv5PVO8N07DbDq33r','3o9kpgkIcffx0iSwxhuNI2','0dS2u2UFd88TIzDDaZDLvS','0IhmRkTZRvHFnYN1lPwyDt','0ifEFzqrvf3J2PIXecVAOJ','2qOmcSjOQEDIJKosonn75a','7H0ya83CMmgFcOhw0UB6ow']
-#create_own_spotify_playlist("Test playlist 3", "This is an api test", track_ids, False)
-# get_tracks(track_ids)
+track_ids = [ '1KQc37jezhunxnOPhvdwSG','2IJJszwGK4NWmh3bNK6CPD','4JsDHMv5PVO8N07DbDq33r','3o9kpgkIcffx0iSwxhuNI2','0dS2u2UFd88TIzDDaZDLvS','0IhmRkTZRvHFnYN1lPwyDt','0ifEFzqrvf3J2PIXecVAOJ','2qOmcSjOQEDIJKosonn75a','7H0ya83CMmgFcOhw0UB6ow']
+track_ids = ['40XW3d74CGOrWPcNpJDeUi', '5bAQy2e2gMXnx21FbaQKqX', '4erMZWKJDVPko0AQtWD5ZR', '1xe4IvNW94G8R4KCHrLUt6', '0cPa96zXRs2LVuNIqu06oj', '2lujKh60rajud4t0kIcbGh', '18QR3ZWCOhPYNAWNO8qHNz', '0oewwSNqDXhIe6SEOBAtBS', '2puDADzGyxc5mdnMXHhC4e', '5EZVVYOQeGewr58B2TLknH']   
+create_own_spotify_playlist("Test playlist 4", "This is an api test", track_ids, False)
+get_tracks(track_ids)
