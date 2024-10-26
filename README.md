@@ -12,17 +12,18 @@ the metric: my own appreciation XP
 
 <ins>api_connect.py</ins>: Retrieve & renew client token  
 <ins>user_authentication.py</ins>: Implements OAuth to fetch user token (interact with my own account)   
-<ins>random_select.py</ins>: Yet, experiment to understand the search behaviour. In the futur, list spotify songs randomly.  
+<ins>simple_strategy.py</ins>: Simple strategy trying to list spotify songs randomly.  
+<ins>track_search.py</ins>: Search for spotify track with criterion.    
 <ins>screate_spotify_playlist.py</ins>: Create a spotify playlist on your user with the specified songs. (yet, broken)
 
 ## Note on the Search limitation
 
 - max songs per search: 100,
 - search answers are not random (push forward famous songs),
-- limited/unwanted search criterion,
-- limited query per day,
+- the search endpoint prevent database scrapping,
+- there is a limit rate for querying the database,
 - the api specify ("we don't want people training AI with it"), 
-    I don't wanna be banned because I launched too many queries.
+I don't want my personnal account to be banned because I launched too many queries.
 
 ## Strategies as workaround
 

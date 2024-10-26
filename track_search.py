@@ -1,5 +1,5 @@
 """
-Intend to provide an [almost] random sub-sample of all spotify's songs (to make a small random playlist) 
+Search for tracks with criterion
 """
 
 import json
@@ -85,15 +85,20 @@ def search_tracks(q: SearchCriterion):
 
 def print_search( tracks, total, next):
     print("total: ", total)
-    for t in tracks:
-        print(t.title, ": ", t.artist, " => ", t.album)
+    header = Track
+    header.title = "title"
+    header.artist = "artist"
+    header.album = "album"
+    for t in [header] + tracks:
+        print("| {:<30} | {:<30} | {:<30} |"\
+              .format(t.title[:30], t.artist[:30], t.album[:30]))
 
-query = SearchCriterion()
-query.title = "love"
-query.artist = "Elton"
-query.album = "Lion"
-query.genre = "Rock"
-query.market = "FR"
-query.year = "1995-2024"
-tracks, total, next = search_tracks(query)  
-print_search(tracks, total, next)
+# query = SearchCriterion()
+# query.title = "love"
+# query.artist = "Elton"
+# query.album = "Lion"
+# query.genre = "Rock"
+# query.market = "FR"
+# query.year = "1995-2024"
+# tracks, total, next = search_tracks(query)  
+# print_search(tracks, total, next)
