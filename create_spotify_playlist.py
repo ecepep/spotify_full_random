@@ -46,40 +46,60 @@ def create_playlist(name, user_id, description = "", public = False):
 
     return id
 
+
+def get_tracks(track_ids):
+    if len(track_ids) > 50:
+        raise Exception("sorry api refuse more than 50 tracks")
+    
+    url = "https://api.spotify.com/v1/tracks?ids="+ str.join(',', track_ids)
+
+    res = re.get(url, headers=get_user_authorizaton_headers())
+
+    if res.status_code != 200 and res.status_code != 201:
+        raise Exception("Failed to add song to playlist, "+ str(res.status_code)+ ": "+ str(res.content))
+    
+    content = json.loads(res.content)
+    return content
+
+
 def add_songs_to_playlist(track_ids, playlist_id):
-    # Max 100 songs per request (webapi limitation)
-    chuncks = list(chunked(track_ids, 100))
+    # Max 100 songs per add to playlist request (webapi limitation), 50 for get tracks
+    chuncks = list(chunked(track_ids, 50))
 
     for i, chunk in enumerate(chuncks):
-        url = "https://api.spotify.com/v1/playlists/"+playlist_id+"/tracks"
+        if len(chunk) != len(get_tracks(chunk)["tracks"]):
+            raise Exception("Some song have invalid ids")
         
-        body = {
-            "uris": ["spotify:track:"+track_id for track_id in chunk]
-        }
-        print("body: ", body)
+        uris = ["spotify:track:"+track_id for track_id in chunk]
+        
+        url = "https://api.spotify.com/v1/playlists/"+playlist_id+"/tracks?uris="\
+            + str.join(',', uris)
+
+        # print("url: ", url)
         
         headers=get_user_authorizaton_headers()
-        headers["Content-Type"] = "application/json"
         
-        res = re.post(url=url, headers=headers, json=body)
+        res = re.post(url=url, headers=headers, json=None) #, json=body
         
         if res.status_code != 200 and res.status_code != 201:
             raise Exception("Failed to add song to playlist, "+ str(res.status_code)+ ": "+ str(res.content))
     
-def create_own_spotify_playlist(name, description, track_ids):
+        print("res: "+ str(res.status_code)+ ": "+ str(res.content))
+
+
+def create_own_spotify_playlist(name, description, track_ids, public = False):
     me_id = get_me_user_id()
     
     all_user_playlist = get_user_playlist(me_id)
 
     name_match = [p for p in all_user_playlist if p[1] == name]
     if len(name_match) > 0:
-        raise Exception("Playlist with name: {name} already exists")
+        raise Exception("Playlist with name: %s already exists. %s" % (name, name_match))
     
-    playlist_id = create_playlist(name, me_id, description)
+    
+    playlist_id = create_playlist(name, me_id, description, public )
     add_songs_to_playlist(track_ids, playlist_id)
-    # track_uris = ["spotify:track:" + id for id in track_ids]
 
-
-track_ids = ["2up3OPMp9Tb4dAKM2erWXQ", "0kbYTNQb4Pb1rPbbaF0pT4"]
-
-create_own_spotify_playlist("Test playlist", "This is an api test", track_ids)
+# track_ids = [ '1KQc37jezhunxnOPhvdwSG','2IJJszwGK4NWmh3bNK6CPD','4JsDHMv5PVO8N07DbDq33r','3o9kpgkIcffx0iSwxhuNI2','0dS2u2UFd88TIzDDaZDLvS','0IhmRkTZRvHFnYN1lPwyDt','0ifEFzqrvf3J2PIXecVAOJ','2qOmcSjOQEDIJKosonn75a','7H0ya83CMmgFcOhw0UB6ow']
+#create_own_spotify_playlist("Test playlist 3", "This is an api test", track_ids, False)
+# get_tracks(track_ids)
