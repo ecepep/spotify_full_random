@@ -92,12 +92,15 @@ def print_search( tracks, total, next):
         print("| {:<30} | {:<30} | {:<30} |"\
               .format(t.title[:30], t.artist[:30], t.album[:30]))
 
-# query = SearchCriterion()
-# query.title = "love"
-# query.artist = "Elton"
-# query.album = "Lion"
-# query.genre = "Rock"
-# query.market = "FR"
-# query.year = "1995-2024"
-# tracks, total, next = search_tracks(query)  
-# print_search(tracks, total, next)
+
+if __name__ == "__main__":   
+    query = SearchCriterion()
+    query.title = "love"
+    query.artist = "Elton"
+    query.album = "Lion"
+    query.genre = "Rock"
+    query.market = "FR"
+    query.year = "1995-2024"
+    tracks, total, next = search_tracks(query)  
+    print_search(tracks, total, next)
+    
