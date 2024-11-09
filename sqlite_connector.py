@@ -8,7 +8,8 @@ from dataclasses import dataclass
 from track_search import Track, SearchCriterion, search_tracks
 import os
 import urllib.parse
-from requests.utils import requote_uri
+import pandas as pd
+from requests.utils import requote_uri, unquote
 
 DATABASE_ROOT = "ressource/"
 
@@ -55,6 +56,39 @@ class SqlDB:
             self.con.commit()
         except Exception as e:
             print("ERROR: DB insertion error, ", e)
+
+    def get_tracks(self, where=None):
+        where = "" if where is None else ("WHERE " + where)
+        query = "SELECT * FROM track " + where
+
+        res = self.cur.execute(query)
+        res = res.fetchall()
+        
+        search_id = [] # search_id is mostly meant for product table (join)
+        tracks = []
+        for row in res:
+            row = [unquote(r) for r in row]
+            t = Track() 
+            t.id = row[0]
+            t.title = row[1]
+            t.artist = row[2]
+            t.popularity = row[3]
+            t.year = row[4]
+            t.album = row[5]
+            tracks.append(t)
+            q = row[6]
+            search_id.append(q)
+            
+        return tracks
+
+    def get_tracks_df(self, where=None):
+        where = "" if where is None else ("WHERE " + where)
+        query = "SELECT * FROM track " + where
+        
+        df = pd.read_sql_query(query, self.con)
+        return df
+
+
 
 # query = SearchCriterion()
 # query.year = 1995

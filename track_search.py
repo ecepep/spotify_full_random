@@ -20,7 +20,6 @@ class Track:
     popularity = None
     year = None
     album = None
-    genre = None
 
 @dataclass
 class SearchCriterion:

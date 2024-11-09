@@ -96,7 +96,6 @@ def create_own_spotify_playlist(name, description, track_ids, public = False):
     if len(name_match) > 0:
         raise Exception("Playlist with name: %s already exists. %s" % (name, name_match))
     
-    
     playlist_id = create_playlist(name, me_id, description, public )
     add_songs_to_playlist(track_ids, playlist_id)
 

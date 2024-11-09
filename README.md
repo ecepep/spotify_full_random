@@ -11,10 +11,11 @@ the metric: my own appreciation XP
 ## Content
 
 <ins>api_connect.py</ins>: Retrieve & renew client token  
-<ins>user_authentication.py</ins>: Implements OAuth to fetch user token (interact with my own account)   
-<ins>simple_strategy.py</ins>: Simple strategy trying to list spotify songs randomly.  
+<ins>user_authentication.py</ins>: Implements OAuth to fetch user token (interact with my own account)     
 <ins>track_search.py</ins>: Search for spotify track with criterion.    
-<ins>screate_spotify_playlist.py</ins>: Create a spotify playlist on your user with the specified songs. (yet, broken)
+<ins>simple_strategy.py</ins>: Simple strategy trying to list spotify songs randomly.  
+<ins>sqlite_connector.py</ins>: Dump result of previous search to a sqlite db.
+<ins>screate_spotify_playlist.py</ins>: Create a spotify playlist on your user with the specified songs.
 
 ## Note on the Search limitation
 
@@ -33,8 +34,7 @@ I don't want my personnal account to be banned because I launched too many queri
     resp in a search. 
     - Do sub search until the total of resp song is < 100.
     - Dictionnaries could be in the first place just alphabets.
-    - Store all result in a local sqlite DB
     - Get to know better the API
-    - use ISRC
+    - use ISRC (https://isrcsearch.ifpi.org/?tab=%22simple%22&artistName=%22idn+hk%22&currentPage=1000)
 - Use a third party database for songs which is more transparent (like musicbrainz)
-to pick some random songs from there and then search them in spotify.
+to pick some random songs from there and then search them in spotify. (https://en.wikipedia.org/wiki/List_of_online_music_databases)
